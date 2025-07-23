@@ -44,17 +44,21 @@ function Header() {
                         </Link>
                     </div>
                     <ul className="flex ml-auto">
-                        {navItems.map((item) =>(
+                        {navItems.map((item) =>
                             item.active?(
-                                <li key={item.slug}>
-                                    <Link to={item.slug}>{item.name}</Link>
+                                <li key={item.name}>
+                                    <button onClick={() => navigate(item.slug)}
+                                     className="inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full">
+                                        {item.name}
+                                    </button>
                                 </li>
-                            ):(
-                                <li key={item.slug}>
-                                    <span>{item.name}</span>
-                                </li>
-                            )
-                    ))}
+                            ): null
+                    )}
+                    {authStatus && (
+                        <li>
+                            <LogoutBtn/>
+                        </li>
+                    )}
                     </ul>
                 </nav>
 

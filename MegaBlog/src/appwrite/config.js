@@ -125,6 +125,7 @@ export class AppwriteService {
             throw error;
         }
     }
+}
 
-const service = new AppwriteService();
-export default service;
+const AppwriteService = new AppwriteService();
+export default AppwriteService;
