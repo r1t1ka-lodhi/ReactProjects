@@ -1,9 +1,9 @@
 
-import React,{use, useState} from "react";
+import React,{ useState} from "react";
 import authService from "../appwrite/auth.js";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../store/authSlice";
-import { Button, Input, Logo } from "./index";
+import { Button, Input, Logo } from "./indes.js";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
 
@@ -17,15 +17,18 @@ function SignUp() {
         setError("");
         try {
             const user = await authService.createAccount(data);
+            console.log("Signup response:", user); 
             if (user) {
                 const userData= await authService.getCurrentUser();
+                console.log("Current user:", userData);
                 if(userData) {
                     dispatch(login(userData));
                 }
                 navigate("/");
             }
         } catch (error) {
-            setError(error.message);
+            console.error("Signup failed:", error); 
+            setError(error.message || "Signup failed");
         }
     }
     return (

@@ -14,9 +14,12 @@ export class AuthService{
     async createAccount({email, password, name}) {
         try {
             const response = await this.account.create(ID.unique(), email, password, name);
-            if(response) {
-                // return response;
-                return this.login({email, password}); // Automatically log in after account creation
+            // await this.account.deleteSessions();
+
+      // Auto login
+            if (response) {
+                // await this.login({email, password});
+                return this.login({email, password});
             }
             else{
                 return response;
@@ -28,8 +31,8 @@ export class AuthService{
 
     async login({email, password}) {
         try {
-            return await this.account.createEmailSession(email, password);
-            
+            return await this.account.createEmailPasswordSession(email, password);
+
         } catch (error) {
             throw error;
         }
